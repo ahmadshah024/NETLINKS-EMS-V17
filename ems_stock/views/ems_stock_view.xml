@@ -1,0 +1,84 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record id="ems_stock_product_inherit" model="ir.ui.view">
+      <field name="name">ems.stock.product.inherit</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_only_form_view"/>
+      <field name="arch" type="xml">
+            <xpath expr="//field[@name='detailed_type']" position="before">
+                <field name="is_uniform"  />
+                <field name="is_book" />
+            </xpath>
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="price"  />
+            </xpath>
+            <xpath expr="//field[@name='detailed_type']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='product_tooltip']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='list_price']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='standard_price']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='default_code']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='product_tag_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='is_book']" position="after">
+                <field name="on_hand_quantity"  />
+            </xpath>
+            
+      </field>
+  </record>
+
+    <record model="ir.actions.act_window" id="ems_stock_action_window">
+        <field name="name">Stock</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="res_model">product.template</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="ems_stock_uniform_view_action_window">
+        <field name="name">Uniform</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="res_model">product.template</field>
+        <field name="domain">[('is_uniform', '=', True)]</field>
+        <field name="context">{'default_is_uniform': True}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="ems_stock_book_view_action_window">
+        <field name="name">Uniform</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="res_model">product.template</field>
+        <field name="domain">[('is_book', '=', True)]</field>
+        <field name="context">{'default_is_book': True}</field>
+    </record>
+
+     
+    <record model="ir.actions.act_window" id="ems_stock_purchase_action_window">
+        <field name="name">Purchase</field>
+        <field name="res_model">ems.stock.purchase</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+   
+    <menuitem name="Stock" id="stock_menu_root" web_icon="ems_stock,static/description/icon.png"/>
+
+    <menuitem name="Product" id="stock_menu" parent="stock_menu_root" action="ems_stock_action_window" sequence="1"/>
+    <menuitem name="Uniform" id="uniform_menu" parent="stock_menu_root" action="ems_stock_uniform_view_action_window" sequence="2"/>
+    <menuitem name="Books" id="book_menu" parent="stock_menu_root" action="ems_stock_book_view_action_window" sequence="3"/>
+    <menuitem name="Purchase" id="purchase_menu" parent="stock_menu_root" action="ems_stock_purchase_action_window" sequence="4"/>
+
+
+
+  
+  </data>
+</odoo>

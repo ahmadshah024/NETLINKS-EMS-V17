@@ -1,0 +1,103 @@
+<odoo>
+  <data>
+
+    <record id="ems_assignment_view_tree" model="ir.ui.view">
+        <field name="name">ems.assignment.view.tree</field>
+        <field name="model">ems.assignment</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name" />
+                <field name="teacher_id" />
+                <field name="class_id" />
+                <field name="subject_id" />
+                <field name="assign_date" />
+                <field name="due_date" />
+                <field name="submission_type" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="ems_assignment_view_form" model="ir.ui.view">
+        <field name="name">ems.assignment.view.form</field>
+        <field name="model">ems.assignment</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <button name="action_active" string="Active Assignment" type="object" class="oe_highlight"
+                        invisible="state in ('active','done')"/>
+                    <button name="action_done" string="Done" type="object" class="oe_highlight"
+                        invisible="state in ('draft','done')"/>   
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done,acitve"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Assignment Name"/>
+                        </h1>
+                    </div> 
+                    <group>
+                        <group>
+                            <field name="teacher_id" />
+                        </group>
+                        <group>
+                            <field name="class_id" />
+                            <field name="subject_id" />
+                            <field name="assign_date" />
+                            <field name="due_date" />
+                        </group>
+                        <group>
+                            <field name="submission_type" />
+                            <field name="file" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="submitted_assignments" string="Submitted Assignments">
+                            <field name="assignment_line_ids">
+                                <tree create="0">
+                                    <field name="student_id" />
+                                    <field name="assignment_id" />
+                                    <field name="submitted_date" />
+                                    <field name="documents" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+
+
+    <record id="ems_assignment_view_search" model="ir.ui.view">
+        <field name="name">ems.assignment.view.search</field>
+        <field name="model">ems.assignment</field>
+        <field name="arch" type="xml">
+          <search>
+            <field name="name" string="assignment Name"/>
+            <field name="teacher_id" />
+            <field name="class_id" />
+            <separator />
+            <group expand="0" string="Group By">
+           </group>
+                <filter name="teacher" string="Teacher" context="{'group_by': 'teacher_id'}" />
+                <filter name="subject" string="Subject" context="{'group_by': 'subject_id'}" />
+                <filter name="class" string="Class" context="{'group_by': 'class_id'}" />
+         </search>
+        </field>
+      </record>
+
+
+    <record model="ir.actions.act_window" id="ems_assingment_action_window">
+      <field name="name">Assignment</field>
+      <field name="res_model">ems.assignment</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem name="Assignment" id="ems_assingment_menu_root" web_icon="ems_assingment,static/description/icon.png"/>
+    <menuitem name="Assignment" id="ems_assingment_menu" parent="ems_assingment_menu_root" action="ems_assingment_action_window"/>
+
+
+  </data>
+</odoo>

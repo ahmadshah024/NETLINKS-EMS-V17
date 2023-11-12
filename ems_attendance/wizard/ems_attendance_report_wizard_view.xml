@@ -1,0 +1,43 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="ems_attendance_report_wizard_form_view">
+        <field name="name">ems.atttendance.report.wizard.form.view</field>
+        <field name="model">ems.attendance.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="class_id"/>
+                        </group>
+                        <group>
+                            <field name="start_date" />
+                            <field name="end_date" />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Print" name="print_attendance_report" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="ems_attendance_report_wizard_action_window">
+      <field name="name">Ems Attendance Monthly Report</field>
+      <field name="res_model">ems.attendance.report.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="ems_attendance_report_wizard_form_view"/>
+      <field name="target">new</field>
+    </record>
+
+
+    <menuitem name="Reports" id="ems_attendance_reports_menu" parent="ems_attendance_menu_root"/>  
+
+    <menuitem name="Student Monthly Attendance Report" id="ems_attendance_montly_report_menu" parent="ems_attendance_reports_menu"
+        action="ems_attendance_report_wizard_action_window" />  
+
+  </data>
+</odoo>

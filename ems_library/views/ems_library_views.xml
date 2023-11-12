@@ -1,0 +1,123 @@
+ 
+ <!-- <?xml version="1.0" encoding="utf-8"?> -->
+ <odoo>
+ 
+
+
+
+    <record id="ems_library_view_tree" model="ir.ui.view">
+        <field name="name">ems_library_view_tree</field>
+        <field name="model">ems.library</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="ems_library_view_search" model="ir.ui.view">
+        <field name="name">ems_library_view_search</field>
+        <field name="model">ems.library</field>
+        <field name="arch" type="xml">
+            <search string="">
+                <field name="name" />
+                <field name="student_id" />
+                <filter name="assigned_books" string="Assigned Books" domain="[('state', '=', 'waiting')]" />
+                <group expand="0" string="Group By">
+                  <filter name="student_id" string="Students" context="{'group_by': 'student_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="ems_library_view_form" model="ir.ui.view">
+        <field name="name">ems_library_view_form</field>
+        <field name="model">ems.library</field>
+        <field name="arch" type="xml">
+            <form string="">
+        <header>
+            <button name="action_mark_done" string="Done" type="object" class="oe_highlight"
+                invisible="state not in 'return'"/>
+            <button name="action_mark_return" string="Return" type="object" class="oe_highlight"
+                invisible="state not in 'waiting'"/>
+            <button name="action_mark_cancel" string="Cancel" type="object" class="oe_highlight"
+                invisible="state not in 'draft'"/> 
+            <button name="action_mark_waiting" string="Assign" type="object" class="oe_highlight"
+                invisible="state not in 'draft'"/>
+            <field name="state" widget="statusbar" statusbar_visible="draft,done,cancel,waiting,return"/>
+        </header>
+             <sheet>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" placeholder="Name"/>
+                    </h1>
+                </div>
+                <group>
+                      <group>
+                        <field name="student_id" options="{'no_create': True}" />
+                        <field name="days" />
+                    </group>
+                    <group>
+                        <field name="date" />
+                        <field name="return_date"/>
+                        <field name="state" invisible="1" />
+                        <field name="is_returned" invisible="state in ('draft','cancel')" />
+                    </group>
+                </group>
+                  
+                <notebook>
+                    <page name="books" string="books">
+                        <field name="library_line_ids" >
+                            <tree editable="top">
+                                <field name="book_id" options="{'no_create': True}"/>
+                                <field name="subjects" />
+                                <field name="author" />
+                                <field name="language" />
+                            </tree>   
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+
+    <record model="ir.actions.act_window" id="ems_library_action_window">
+      <field name="name">Book Request</field>
+      <field name="res_model">ems.library</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <!-- Top menu item -->
+    <menuitem name="Library" id="ems_library_menu_root" web_icon="ems_library,static/description/icon.png"/>
+
+
+    <!-- menu categories -->
+
+    <menuitem name="Book Request" id="ems_library_menu_1" parent="ems_library_menu_root" action="ems_library_action_window"/>
+    <menuitem name="Books" id="ems_library_books_menu_2" parent="ems_library_menu_root" action="ems_library_books_action_window"/>
+
+
+ 
+ </odoo>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

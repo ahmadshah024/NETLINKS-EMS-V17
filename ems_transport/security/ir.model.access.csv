@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ems_transport,ems.transport,model_ems_transport,base.group_user,1,1,1,1
+access_ems_transport_car,ems.transport.car,model_ems_transport_car,base.group_user,1,1,1,1
+access_ems_transport_driver,ems.transport.driver,model_ems_transport_driver,base.group_user,1,1,1,1
+access_ems_transport_line,ems.transport.line,model_ems_transport_line,base.group_user,1,1,1,1
+access_ems_transport_line_teacher,ems.transport.line.teacher,model_ems_transport_line_teacher,base.group_user,1,1,1,1

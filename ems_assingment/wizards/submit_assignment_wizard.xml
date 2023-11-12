@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="submit_assignment_wizard_view_form" model="ir.ui.view">
+        <field name="name">submit.assignemt.wizard.view.form</field>
+        <field name="model">submit.assignment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="assignment_id" options="{'no_create': True}"/>
+                            <field name="file" />
+                            <field name="date" />
+                            <field name="class_id" invisible="1" />
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Submit" class="btn btn-primary" type="object" name="action_submit" data-hotkey="q" />
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

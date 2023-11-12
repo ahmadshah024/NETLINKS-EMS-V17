@@ -1,0 +1,100 @@
+<odoo>
+  <data>
+    <record id="ems_examination_result_view_tree" model="ir.ui.view">
+        <field name="name">ems_examination_result_view_tree</field>
+        <field name="model">ems.examination.result</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="student_id" />
+                <field name="class_id" />
+                <field name="total_marks" />
+                <field name="average_marks" />
+                <field name="result" />
+                <field name="grade" />
+            </tree>
+        </field>
+    </record>
+    <record id="ems_examination_result_view_form" model="ir.ui.view">
+        <field name="name">ems_examination_result_view_form</field>
+        <field name="model">ems.examination.result</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <button name="action_mark_done" string="Done" type="object" class="oe_highlight"
+                        invisible="state in ('cancel','done')"/>
+                    <button name="action_mark_cancel" string="Cancel" type="object" class="oe_highlight"
+                        invisible="state in ('cancel','done')"/>      
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done,cancel,"/>
+                </header>
+                <sheet>
+                <group>
+                    <group>
+                        <field name="exam_id" options="{'no_create': True}"/>
+                        <field name="student_id" options="{'no_create': True}" invisible="exam_type == 'other'"/>
+                        <field name="class_id" readonly="exam_type != 'other'" />
+                    </group>
+                    <group>
+                        <field name="reference" invisible="exam_type == 'other'" />
+                        <field name="exam_type" />
+                        <field name="subject_id" invisible="exam_type != 'other'"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page name="subject_marks" string="Subject Marks" invisible="exam_type not in ('mid-term','final')" >
+                    <field name="examination_result_line_ids">
+                        <tree editable="bottom" create="0">
+                            <field name="subject_id" />
+                            <field name="max_mark" />
+                            <field name="min_mark" />
+                            <field name="mid_mark" />
+                            <field name="exam_type" invisible="1" />
+                            <field name="final_mark" readonly="exam_type == 'mid-term'" />
+                            <field name="total" />
+                        </tree>
+                    </field>
+                    </page>
+                    <page name="other_subject_marks" string="Marks" invisible="exam_type != 'other'"   >
+                        <field name="other_examination_result_line_ids">
+                            <tree editable="bottom" create="0">
+                                <field name="student_id" />
+                                <field name="mark" />
+                                <field name="std_id" />
+                            </tree>
+                        </field>
+                        </page>
+                </notebook>
+                <group>
+                    <group invisible="exam_type == 'other'">
+                        <field name="present_days" />
+                        <field name="absent_days" />
+                        <field name="leave_days" />
+                    </group>
+                    <group invisible="exam_type == 'other'">
+                        <field name="total_marks" />
+                        <field name="average_marks" />
+                        <field name="result" />
+                        <field name="grade" />
+                    </group>
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="ems_result_view_search" model="ir.ui.view">
+        <field name="name">ems.result.view.search</field>
+        <field name="model">ems.examination.result</field>
+        <field name="arch" type="xml">
+          <search>
+            <field name="student_id" string="Student Name"/>
+            <field name="class_id" />
+            <field name="exam_id" />
+            <separator />
+            <group expand="0" string="Group By">
+           </group>
+                <filter name="result" string="Result" context="{'group_by': 'result'}" />
+         </search>
+        </field>
+      </record>
+
+  </data>
+</odoo>

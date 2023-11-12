@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="ems_book_view_tree" model="ir.ui.view">
+            <field name="name">ems_book_view_tree</field>
+            <field name="model">ems.book</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name" />
+                    <field name="author" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="ems_book_view_form" model="ir.ui.view">
+            <field name="name">ems_book_view_form</field>
+            <field name="model">ems.book</field>
+            <field name="arch" type="xml">
+                <form string="">
+            <header>
+                <button name="action_mark_done" string="Done" type="object" class="oe_highlight" invisible="state in ('cancel','done')"/>
+                <button name="action_mark_cancel" string="Cancel" type="object" class="oe_highlight" invisible="state in ('cancel','done')"/>   
+                <field name="state" widget="statusbar" statusbar_visible="draft,done,cancel,"/>
+            </header>
+                    <sheet>
+                    <field name="image" widget='image' class="oe_avatar"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>    
+                        <group>
+                            <group>
+                                <field name="publication_date" />
+                            </group>
+                            <group>
+                                <field name="author" />
+                                <field name="pages" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="book_kanban" model="ir.ui.view">
+            <field name="name">ems_book_view_kanban</field>
+            <field name="model">ems.book</field>
+            <field name="priority">10</field>
+            <field name="arch" type="xml">
+                <kanban sample="1">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-4 d-flex align-items-center">
+                                        <field name="image" widget="image" class="oe_avatar" style="{'size': [400,400]}" />
+                                    </div>
+                                    <div class="col-8">
+                                        <strong class="ml-2">
+                                         <field name="name" />
+                                        </strong>
+                                        <div class="ml-2">
+                                    
+                                        </div>
+                                        <div class="oe_kanban_details mt-3 ml-2" name="items">
+                                            <ul>
+                                                <li><i class="fa fa-user p-1" title="author"/> <field name="author" widget="author" /></li> 
+                                                <li><i class="fa fa-file p-1" title="pages"/> <field name="pages" /></li> 
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record> 
+
+
+  
+
+</odoo>

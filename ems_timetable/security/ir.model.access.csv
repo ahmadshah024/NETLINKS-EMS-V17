@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ems_timetable,ems.timetable,model_ems_timetable,base.group_user,1,1,1,1
+access_ems_timetable_line,ems.timetable.line,model_ems_timetable_line,base.group_user,1,1,1,1
+access_ems_exam_timetable,ems.exam.timetable,model_ems_exam_timetable,base.group_user,1,1,1,1
+access_ems_exam_timetable_line,ems.exam.timetable.line,model_ems_exam_timetable_line,base.group_user,1,1,1,1
+access_ems_subject,ems.subject,model_ems_subject,base.group_user,1,1,1,1
+access_ems_timetable_period,ems.timetable.period,model_ems_timetable_period,base.group_user,1,1,1,1
+access_ems_timetable_period_line,ems.timetable.period.line,model_ems_timetable_period_line,base.group_user,1,1,1,1
+access_ems_timetable_day,ems.timetable.day,model_ems_timetable_day,base.group_user,1,1,1,1
+access_ems_timetable_day_line,ems.timetable.day.line,model_ems_timetable_day_line,base.group_user,1,1,1,1
+access_ems_teacher_timetable,ems.teacher.timetable,model_ems_teacher_timetable,base.group_user,1,1,1,1
+access_ems_teacher_timetable_line,ems.teacher.timetable.line,model_ems_teacher_timetable_line,base.group_user,1,1,1,1

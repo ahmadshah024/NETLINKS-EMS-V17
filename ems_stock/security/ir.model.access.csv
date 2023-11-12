@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ems_stock_purchase,ems.stock.purchase,model_ems_stock_purchase,base.group_user,1,1,1,1
+access_ems_stock_purchase_line,ems.stock.purchase.line,model_ems_stock_purchase_line,base.group_user,1,1,1,1
+
+

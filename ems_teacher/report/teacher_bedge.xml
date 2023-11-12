@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="teacher_print_badge" model="ir.actions.report">
+        <field name="name">Print Badge</field>
+        <field name="model">hr.employee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ems_teacher.print_teacher_badge</field>
+        <field name="report_file">ems_teacher.print_teacher_badge</field>
+        <field name="print_report_name">'Print Badge - %s' % (object.name).replace('/', '')</field>
+        <field name="binding_model_id" ref="model_hr_employee"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="print_teacher_badge">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="employee">
+                    <div class="col-md-6">
+                        <div class="badge-container" style="height: 500px; width: 300px; display: flex; flex-direction: column; align-items: center; border: 2px solid black; border-radius: 10px;">
+                            <div class="logo" style="margin-top: 10px;">
+                                <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" alt="Company Logo" style="max-height: 85pt; max-width: 90%"/>
+                            </div>
+                            <div class="avatar" style="margin-top: 20px;">
+                                <img t-att-src="image_data_uri(employee.avatar_1920)" alt="Employee Image" style="max-height: 85pt; max-width: 90%"/>
+                            </div>
+                            <div class="info" style="text-align: center; margin-top: 20px;">
+                                <div class="name" style="font-size: 16px;"><t t-esc="employee.name"/></div>
+                                <div class="name" style="font-size: 16px;"><t t-esc="employee.reference"/></div>
+                                <div class="job-title" style="font-size: 12px;"><t t-esc="employee.job_id.name"/></div>
+                                <div class="job-title" style="font-size: 12px;"><t t-esc="employee.job_title"/></div>
+                                <div class="job-title" style="font-size: 12px;"><t t-esc="employee.department_id.name"/></div>
+                                <div class="job-title" style="font-size: 12px; margin-bottom:20px;"><t t-esc="employee.work_phone"/></div>
+                                <div class="job-title" style="font-size: 12px; width:200px; font-width:bold;"><t t-esc="employee.barcode"/></div>
+                                
+                            </div>
+                            <div t-if="employee.barcode" class="barcode" style="width:100%;text-align:center;" >
+                                <div t-field="employee.barcode" t-options="{'widget': 'barcode', 'width': 500, 'height': 60, 'img_style': 'max-height: 30px; max-width: 100%;', 'img_align': 'center'}"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+    
+</odoo>

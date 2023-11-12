@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_paperformat_custom_monthly" model="report.paperformat">
+        <field name="name">Custom A4</field>
+        <field name="format">custom</field>
+        <field name="page_height">260</field>  
+        <field name="page_width">210</field>   
+        <field name="orientation">Portrait</field>  
+        <field name="margin_top">1</field>  
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+    </record>
+    <record id="student_print_monthly_attendance" model="ir.actions.report">
+        <field name="name">Print monthly Attendance</field>
+        <field name="model">ems.attendance.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ems_attendance.print_student_monthly_attendance</field>
+        <field name="report_file">ems_attendance.print_student_monthly_attendance</field>
+        <field name="print_report_name">'Print Student monthly Attendance'</field>
+        <field name="binding_model_id" ref="model_ems_attendance_report_wizard"/>
+        <field name="paperformat_id" ref="report_paperformat_custom_monthly"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="print_student_monthly_attendance">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="oe_structure" />
+                        <br /><br />
+                        <div class="row" align="center">
+                            <div class="logo" style="margin-top: 10px;">
+                                <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" alt="Company Logo" style="max-height: 85pt; max-width: 90%"/>
+                            </div>
+                            <div class="name" style="margin-top: 10px;">
+                                <h2><t t-esc="o.company_id.name"/></h2>
+                            </div>
+                            
+                            <h1>Attendance Report for Class <t t-esc="o.class_id.name" class="red"/></h1>
+                            <h2>From <t t-esc="o.start_date"/> To <t t-esc="o.end_date"/> </h2>
+                        </div>
+                        <div class="row">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Student ID</th>
+                                        <th>Name</th>
+                                        <th>Father Name</th>
+                                        <th>Present Days</th>
+                                        <th>Absent Days</th>
+                                        <th>Leave Days</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="data" t-as="record">
+                                        <tr>
+                                            <td><t t-esc="record['student_reference']"/></td>
+                                            <td><t t-esc="record['name']"/></td>
+                                            <td><t t-esc="record['father_name']"/></td>
+                                            <td><t t-esc="record['present_days']"/></td>
+                                            <td><t t-esc="record['absent_days']"/></td>
+                                            <td><t t-esc="record['leave_days']"/></td>
+                                        </tr>
+                                    </t>
+                                     
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,20 @@
+<odoo>
+    <!-- category -->
+    <record model="ir.module.category" id="parent_category">
+        <field name="name">Parent</field>
+    </record>
+
+    <!-- groups -->
+    <record id="group_parent_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="parent_category"/>
+    </record>
+
+    <record id="group_parent_administrator" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="parent_category"/>
+    </record>
+
+</odoo>

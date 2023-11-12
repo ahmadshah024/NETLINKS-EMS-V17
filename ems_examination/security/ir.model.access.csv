@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ems_examination,ems.examination,model_ems_examination,base.group_user,1,1,1,1
+access_ems_examination_result,ems.examination.result,model_ems_examination_result,base.group_user,1,1,1,1
+access_ems_examination_line,ems.examination.line,model_ems_examination_line,base.group_user,1,1,1,1
+access_ems_examination_result_line,ems.examination.result.line,model_ems_examination_result_line,base.group_user,1,1,1,1
+access_ems_other_examination_result_line,ems.other.examination.result.line,model_ems_other_examination_result_line,base.group_user,1,1,1,1
+access_ems_certificate,ems.certificate,model_ems_certificate,base.group_user,1,1,1,1

@@ -1,0 +1,57 @@
+<odoo>
+  <data>
+
+    <record id="ems_certificate_view_tree" model="ir.ui.view">
+        <field name="name">ems_certificate_view_tree</field>
+        <field name="model">ems.certificate</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name" />
+                <field name="certificate_type" />
+                <field name="certification_reason" />
+                <field name="student_id" />
+                <field name="teacher_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="ems_certificate_view_form" model="ir.ui.view">
+        <field name="name">ems_certificate_view_form</field>
+        <field name="model">ems.certificate</field>
+        <field name="arch" type="xml">
+            <form string="">
+              <!-- <header>
+                    <button name="action_mark_start" string="Start" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', 'in', ('finished','running'))]}"/>
+                    <button name="action_mark_finish" string="Finish" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', 'in', ('draft','cancel'))]}"/>
+                    <button name="action_mark_cancel" string="Cancel" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', 'in', ('cancel','finished','running'))]}"/>      
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done,cancel,"/>
+                </header> -->
+                <sheet>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" string="New"/>
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="certificate_type" string="Certificate Achievers" />
+                        <field name="student_id" options="{'no_create': True}" invisible="certificate_type == 'teacher'"  />
+                        <field name="teacher_id" options="{'no_create': True}" invisible="certificate_type == 'student'" />
+                        <field name="class_id" invisible="certificate_type == 'teacher'"  />
+                    </group>
+                    <group>
+                        <field name="date" />
+                        <field name="certification_reason" invisible="certificate_type == 'teacher'" />
+                    </group>
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+ 
+  </data>
+</odoo>

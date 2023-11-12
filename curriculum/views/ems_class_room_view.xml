@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <!-- Inherit Patient Form View -->
+        <record id="view_ems_subjects" model="ir.ui.view">
+            <field name="model">ems.class.room</field>
+            <field name="inherit_id" ref="ems-student.ems_class_room_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree[@name='subjects']" position="inside">
+                    <field name="subject_id" />
+                    <field name="book_id" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

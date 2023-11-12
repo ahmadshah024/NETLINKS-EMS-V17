@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="ems_teacher_inherit_timetable" model="ir.ui.view">
+            <field name="name">view.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_ids']" position="after">
+                    <field name="subject_ids" widget="many2many_tags"  invisible="is_teacher != True" placeholder="Subjects"/>
+                </xpath>
+                <xpath expr="//field[@name='category_ids']" position="replace">
+                    <field name="category_ids" widget="many2many_tags"  invisible="is_teacher != True" placeholder="Tags"/>
+                </xpath>
+                <xpath expr="//field[@name='teacher_line_ids']//tree//field[@name='class_id']" position="after">
+                    <field name="subject_id" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

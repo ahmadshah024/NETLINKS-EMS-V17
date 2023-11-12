@@ -1,0 +1,261 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="ems_student_view_tree">
+      <field name="name">ems_student_tree</field>
+      <field name="model">ems.student</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="class_id"/>
+          <field name="age"/>
+          <field name="gender"/>
+          <field name="phone"/>
+          <field name="address"/>
+        </tree>
+      </field>
+    </record>
+
+
+    
+    <record id="ems_student_view_form" model="ir.ui.view">
+      <field name="name">ems.student.view.form</field>
+      <field name="model">ems.student</field>
+      <field name="arch" type="xml">
+        <form string="">
+            <header>
+                <button name="action_done" string="Done" type="object"  invisible="state in ('done','graduate','change','cancel')"/>
+                <button name="action_draft" string="Draft" type="object" invisible="state in ('done','draft','graduate','change','cancel')" />
+                <button name="action_cancel" string="Cancel" type="object" invisible="state in ('done','graduate','change','cancel')"/>
+                <button name="action_graduate" string="Graduate" type="object" invisible="state != 'done' "/>
+                <button name="action_change" string="Change" type="object" invisible="state != 'done'"/>
+                <button name="action_report" string="Report To Discipline" type="object" invisible="state != 'done'"/>
+                <button name="action_change_new_flase" class="btn-info" string="Collect The Documents" type="object" invisible="is_new != True , is_changed != True"
+                />
+                <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,graduate,change,done"/>
+            </header>
+          <sheet>
+            <div class="oe_button_box" name="button_box">
+                
+            </div>
+            <field name="image" widget='image' class="oe_avatar"/>
+            <div class="oe_title">
+                <h1>
+                    <field name="reference" />
+                </h1>
+            </div>
+            <group>
+              <group name="personal_info" string="Personal Information">
+                <field name="name"/>
+                <field name="father_name"/>
+                <field name="grand_father_name"/>
+                <field name="nic"/>
+                
+            </group>
+            <group name="educational_info" string="Educatinal Information">
+                <field name="school" />
+                <field name="class_id" options="{'no_create': True}"/>
+                <field name="academic_year"/>
+                <field name="date"/>
+            </group>
+           
+            <group name="contac_info" string="Contact">
+                <field name="address"/>
+                <field name="phone"/>
+                <field name="email" />
+                <field name="country_id" options="{'no_create': True}" />
+                <field name="province_id" options="{'no_create': True}" />
+                <field name="district_id" options="{'no_create': True}"/>
+            </group>
+            <group name="other_info" string="Other Info">
+                <field name="dob"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <field name="parent_id" options="{'no_create': True}"/>
+                <field name="is_new" />
+                <field name="is_changed" />
+              </group>
+            </group>
+            <notebook>
+                <page name="parent_info" string="Parent">
+                    <tree>
+                        <field name="parent_name"/>
+                    </tree>
+                </page>
+                <page name="previous_school" string="Previous School" invisible="is_changed != True " >
+                    <group>
+                        <group name="name" string="">
+                                <field name="previous_school_name" />
+                                <field name="previous_school_registration_no" />
+                            </group>
+                        <group name="name" string="">
+                            <field name="previous_school_addmission_date" />
+                            <field name="previous_school_exit_date" />
+                        </group>
+                        <group name="name" string="">
+                            <field name="previous_school_exit_reason" />
+                        </group>  
+                        <group name="name" string="">
+                            <field name="previous_school_document_file" />
+                        </group>        
+                    </group>
+                </page>
+                <page name="remarks" string="Remarks">
+                    <group name="remarks" string="Remarks">
+                        <field name="remarks"/>
+                    </group>
+                </page>
+                <page name="awards_info" string="Award" invisible="state not in ('draft','cancel')" >
+                     <field name="award_ids">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                     </field>
+                </page>
+                <page name="certificate_info" string="Certificates" invisible="state not in ('draft','cancel')">
+                    <field name="certificate_ids">
+                       <tree editable="bottom">
+                           <field name="description"/>
+                           <field name="certificate"/>
+                       </tree>
+                    </field>
+               </page>
+               <page name="history" string="History" invisible="state not in ('draft','cancel')" >
+                    <group name="name" string="string">
+                        <field name="academic_year"/>
+                    </group>
+               </page>
+               <page name="student_documents" string="Student Documents">
+                    <group name="name" string="">
+                        <field name="student_document" />
+                    </group>
+               </page>
+               <page name="student_new_school" string="Next School Info"  invisible="state not in ('draft','cancel')">
+                    <group name="name" string="">
+                        <field name="new_school"/>
+                        <field name="new_reason"/>
+                        <field name="new_school_date"/>
+                        <field name="documents"/>
+                    </group>
+               </page>
+                 <page name="student_report_discipline" string="Student Report Dsicipline"  invisible="state not in ('draft','cancel')">
+                    <group name="name" string="">
+                        <field name="discipline_reason"/>
+                    </group>
+               </page>
+               <page name="card" string="Card" >
+                <group string="nnnnnnnnn" name="identification_group">
+                    <field name="pin" string="PIN Code"/>
+                    <label for="barcode"/>
+                    <div class="o_row">
+                        <field name="barcode"/>
+                        <button string="Generate" class="btn btn-link" type="object" name="generate_random_barcode"  invisible="barcode != False "/>
+                        <button name="%(student_print_badge)d" string="Print Badge" class="btn btn-link" type="action" invisible="barcode != False"/>
+                    </div>
+                </group>
+               </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record id="ems_student_view_kanban" model="ir.ui.view">
+        <field name="name">ems.student.view.kanban</field>
+        <field name="model">ems.student</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <kanban sample="1">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="reference"/>
+                <field name="gender"/>
+                <field name="age"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="address"/>
+                <field name="image"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record">
+                        <field name="image" class="o_kanban_image_fill_left d-block" preview_image="image_128" widget="background_image" options="{'zoom': true, 'zoom_delay': 1000}"/>
+                            <div class="oe_kanban_details">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name" placeholder="Student's Name"/>
+                                        </strong>
+                                        <ul>
+                                            <li class="o_text_overflow"><i class="fa fa-envelope p-1" title="envelope"/> <field name="email" widget="email" /></li>
+                                            <li class="o_force_ltr"><i class="fa fa-phone p-1" title="phone"/> <field name="phone" widget="phone" /></li>
+                                            <li><i class="fa fa-home p-1" title="address"/> <field name="address" /></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="ems_student_view_search" model="ir.ui.view">
+        <field name="name">ems.student.view.search</field>
+        <field name="model">ems.student</field>
+        <field name="arch" type="xml">
+          <search>
+            <field name="name" string="Student Name"/>
+            <field name="class_id" />
+            <field name="parent_id" />
+            <separator />
+            <filter name="graduate" string="Graduated Students" domain="[('state', '=', 'graduate')]" />
+            <filter name="change" string="Changed Students" domain="[('state', '=', 'change')]" />
+            <filter name="is_new" string="New Students" domain="[('is_new', '=', True)]" />
+            <filter name="is_changed" string="Changed Students" domain="[('is_changed', '=', True)]" />
+            <separator />
+            <group expand="0" string="Group By">
+           </group>
+                <filter name="gender" string="Gender" context="{'group_by': 'gender'}" />
+         </search>
+        </field>
+      </record>
+
+
+    <record model="ir.actions.act_window" id="ems_student_action_window">
+      <field name="name">Student</field>
+      <field name="res_model">ems.student</field>
+      <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="ems_class_room_action_window">
+        <field name="name">Class Room</field>
+        <field name="res_model">ems.class.room</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+  
+    <record id="ems_district_action" model="ir.actions.act_window">
+        <field name="name">Districts</field>
+        <field name="res_model">ems.district</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No districts found. Create a district!
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Admission" id="ems_student_menu_root" action="ems_student_action_window"  web_icon="ems-student,static/description/icon3.png"/>
+    <menuitem name="Classes" id="ems_class_room_menu"   action="ems_class_room_action_window" web_icon="ems-student,static/description/icon2.png"/>
+      <menuitem name="Student" id="ems_student_menu" action="ems_student_action_window" web_icon="ems-student,static/description/icon.png"/>
+      <menuitem name="Configuration" id="ems_student_menu_configuration" parent="ems_student_menu_root" />
+      <menuitem id="country" name="County" sequence="2" parent="ems_student_menu_configuration">
+        <menuitem name="Country" id="ems_country_menu"   action="base.action_country"/>
+        <menuitem id="districts_menu" name="Districts" action="ems_district_action"/>
+     </menuitem>
+  </data>
+</odoo>

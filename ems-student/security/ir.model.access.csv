@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ems_student_admin,ems.student.admin,model_ems_student,ems-student.group_student_administrator,1,1,1,1
+access_ems_student_user,ems.student.user,model_ems_student,ems-student.group_student_user,1,0,0,0
+access_ems_student_award_admin,ems.student.award.admin,model_ems_student_award,ems-student.group_student_administrator,1,1,1,1
+access_ems_student_award_user,ems.student.award.user,model_ems_student_award,ems-student.group_student_user,1,0,0,0
+access_ems_student_certificate_admin,ems.student.certificate.admin,model_ems_student_certificate,ems-student.group_student_administrator,1,1,1,1
+access_ems_student_certificate_user,ems.student.certificate.user,model_ems_student_certificate,ems-student.group_student_user,1,0,0,0
+access_ems_class_room_admin,ems.class.room.admin,model_ems_class_room,ems-student.group_student_administrator,1,1,1,1
+access_ems_class_room_user,ems.class.room.user,model_ems_class_room,ems-student.group_student_user,1,0,0,0
+access_ems_district_admin,ems.district.admin,model_ems_district,ems-student.group_student_administrator,1,1,1,1
+access_ems_district_usere,ems.district.user,model_ems_district,ems-student.group_student_user,1,0,0,0
+access_accept_reason_wizard_admin,change.school.wizard.admin,model_change_school_wizard,ems-student.group_student_administrator,1,1,1,1
+access_report_reason_wizard_admin,discipline.wizard.admin,model_discipline_wizard,ems-student.group_student_administrator,1,1,1,1
+access_accept_reason_wizard_user,change.school.wizard.user,model_change_school_wizard,ems-student.group_student_user,1,0,0,0
+access_ems_class_room_line_admin,ems.class.room.line.admin,model_ems_class_room_line,ems-student.group_student_administrator,1,1,1,1
+access_ems_class_room_line_user,ems.class.room.line.user,model_ems_class_room_line,ems-student.group_student_user,1,0,0,0

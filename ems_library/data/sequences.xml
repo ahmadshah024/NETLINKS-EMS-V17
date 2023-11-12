@@ -1,0 +1,11 @@
+<odoo>
+	<data noupdate='1'>
+        <record id="seq_ems_library" model="ir.sequence">
+            <field name="name">Ems Library</field>
+            <field name="code">ems.library.sequence</field>
+            <field name="prefix">REQ-</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+	</data>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<odoo>
+
+        <record id="report_time_table_qweb" model="ir.actions.report">
+            <field name="name">Timetable</field>
+            <field name="print_report_name">'Timetable(%s)'%object.class_id.name</field>
+            <field name="model">ems.timetable</field>
+            <field name="binding_model_id" ref="model_ems_timetable"/>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ems_timetable.timetable</field>
+            <field name="report_file">ems_timetable.timetable</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="report_exam_time_table_qweb" model="ir.actions.report">
+            <field name="name">Exam Timetable</field>
+            <field name="print_report_name">'Exam Timetable'</field>
+            <field name="model">ems.exam.timetable</field>
+            <field name="binding_model_id" ref="model_ems_exam_timetable"/>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ems_timetable.exam_timetable</field>
+            <field name="report_file">ems_timetable.exam_timetable</field>
+            <field name="binding_type">report</field>
+        </record>
+        
+
+</odoo>

@@ -1,0 +1,133 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="ems_timetable_view_tree">
+      <field name="name">ems.timetable.view.tree</field>
+      <field name="model">ems.timetable</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="academic_year"/>
+          <field name="class_id" options="{'no_create': True}"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="ems_timetable_view_form" model="ir.ui.view">
+        <field name="name">ems.timetable.view.formm</field>
+        <field name="model">ems.timetable</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <button name="action_done" string="Done" type="object" invisible="state in ('done','cancel')" />
+                    <button name="action_cancel" string="Cancel" type="object" invisible="state in ('done','cancel')" />
+                    <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="academic_year" />
+                            <field name="company_id" invisible="1"/>
+                            <field name="day_ids" options="{'no_create': True}" widget="many2many_tags"/>
+                            <field name="period_count"/>
+                            <field name="class_ids" options="{'no_create': True}" widget="many2many_tags"/>
+                            <field name="teacher_ids" options="{'no_create': True}" widget="many2many_tags"/>
+                            <field name="subject_ids" options="{'no_create': True}" widget="many2many_tags"/>
+                            
+                            <button name="generate_timetable" type="object" string="Generate Timetable" class="oe_highlight"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="timetable" string="Timetable">
+                            <field name="timetable_line_ids">
+                                <tree editable="bottom"> 
+                                    <!-- <field name="week_days" />
+                                    <field name="subject_id1" string="Subject One" options="{'no_create': True}" />
+                                    <field name="subject_id2" string="Subject Two" options="{'no_create': True}" />
+                                    <field name="subject_id3" string="Subject Three" options="{'no_create': True}" />
+                                    <field name="subject_id4" string="Subject Four" options="{'no_create': True}" />
+                                    <field name="subject_id5" string="Subject Five" options="{'no_create': True}" />
+                                    <field name="subject_id6" string="Subject Six" options="{'no_create': True}" />
+                                    <field name="subject_id7" string="Subject Seven" options="{'no_create': True}" /> -->
+                                    
+                                </tree>
+                            </field>
+                            
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ems_timetable_view_search" model="ir.ui.view">
+        <field name="name">ems.timetable.view.search</field>
+        <field name="model">ems.timetable</field>
+        <field name="arch" type="xml">
+          <search>
+            <field name="name"/>
+            <field name="class_id" />
+            <field name="academic_year" />
+         </search>
+        </field>
+      </record>
+
+
+    <record model="ir.actions.act_window" id="ems_timetable_action_window">
+      <field name="name">Timetable</field>
+      <field name="res_model">ems.timetable</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="ems_exam_timetable_action_window">
+        <field name="name">Exam Timetable</field>
+        <field name="res_model">ems.exam.timetable</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+
+    <record model="ir.actions.act_window" id="ems_subject_action_window">
+        <field name="name">Subject</field>
+        <field name="res_model">ems.subject</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+
+    <record id="ems_timetable_period_action" model="ir.actions.act_window">
+        <field name="name">Periods</field>
+        <field name="res_model">ems.timetable.period</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="ems_timetable_period_action" model="ir.actions.act_window">
+        <field name="name">Periods</field>
+        <field name="res_model">ems.timetable.period</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+  
+    <record id="ems_timetable_day_action" model="ir.actions.act_window">
+        <field name="name">days</field>
+        <field name="res_model">ems.timetable.day</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record id="ems_teacher_timetable_action" model="ir.actions.act_window">
+      <field name="name">Teachers Timetable</field>
+      <field name="res_model">ems.teacher.timetable</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Timetable" id="ems_timetable_menu_root" web_icon="ems_timetable,static/description/icon.png"/>
+
+    <menuitem name="Regular Timetable" id="ems_timetable_menu" parent="ems_timetable_menu_root" action="ems_timetable_action_window" sequence="1"/>
+    <menuitem name="Exam Timetable" id="ems_exam_timetable_menu" parent="ems_timetable_menu_root" action="ems_exam_timetable_action_window" sequence="2"/>
+    <menuitem name="Subjects" id="ems_subject_menu" parent="ems_timetable_menu_root" action="ems_subject_action_window" sequence="3"/>
+    <menuitem name="Teacher Timetable" id="ems_teacher_timetable_menu" parent="ems_timetable_menu_root" action="ems_teacher_timetable_action" sequence="4"/>
+    <menuitem name="Periods" id="ems_period_menu" parent="ems_timetable_menu_root" action="ems_timetable_period_action" sequence="5"/>
+    <menuitem name="days" id="ems_day_menu" parent="ems_timetable_menu_root" action="ems_timetable_day_action" sequence="6"/>
+
+    
+
+  </data>
+</odoo>

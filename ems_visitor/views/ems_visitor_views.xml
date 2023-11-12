@@ -1,0 +1,96 @@
+<odoo>
+  <data>
+
+
+    <record id="ems_visitor_view_tree" model="ir.ui.view">
+      <field name="name">ems_visitor_view_tree</field>
+      <field name="model">ems.visitor</field>
+      <field name="arch" type="xml">
+        <tree string="">
+          <field name="name" />
+          <field name="reason" />
+        </tree>
+      </field>
+    </record>
+
+
+    <record id="ems_visitor_view_form" model="ir.ui.view">
+      <field name="name">ems_visitor_view_form</field>
+      <field name="model">ems.visitor</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <sheet>
+          <group>
+              <group>
+                  <field name="name" />
+                  <field name="date_time" />
+                  <field name="reason"/>
+              </group>
+            <group name="about us" string="How did you find out about us?">
+                <field name="through_a_friend"/>
+                <field name="on_TV" />
+                <field name="local_community" />
+                <field name="on_the_radio" />
+                <field name="from_an_ad" />
+                <field name="social_media" />
+            </group>
+          </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+        <record id="ems_visitor_view_search" model="ir.ui.view">
+        <field name="name">ems_visitor_view_search</field>
+        <field name="model">ems.visitor</field>
+        <field name="arch" type="xml">
+          <search>
+            <field name="name" string="Visitor Name"/>
+          <separator />
+            <filter name="through_a_friend" string="Through a friend" domain="[('through_a_friend', '=', True)]" />
+            <filter name="on_TV" string="On TV" domain="[('on_TV', '=', True)]" />
+            <filter name="on_the_radio" string="On the radio" domain="[('on_the_radio', '=', True)]" />
+            <filter name="from_an_ad" string="From an ad" domain="[('from_an_ad', '=', True)]" />
+            <filter name="local_community" string="Local community" domain="[('local_community', '=', True)]" />
+            <filter name="social_media" string="Social media" domain="[('social_media', '=', True)]" />
+            
+          <separator />
+            <group expand="0" string="Group By">
+           </group>
+                <filter name="through_a_friend" string="through a Friend" context="{'group_by': 'through_a_friend'}"/>
+                <filter name="on_TV" string="On TV" context="{'group_by': 'on_TV'}" />
+                <filter name="on_the_radio" string="On the Radio" context="{'group_by': 'on_the_radio'}" />
+                <filter name="from_an_ad" string="from an ad" context="{'group_by': 'from_an_ad'}" />
+                <filter name="local_community" string="Local Community" context="{'group_by': 'local_community'}" />
+                <filter name="social_media" string="Social media" context="{'group_by': 'social_media'}" />
+         </search>
+        </field>
+      </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="ems_visitor_action_window">
+      <field name="name">Visitor</field>
+      <field name="res_model">ems.visitor</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="Visitor" id="ems_visitor_menu_root" web_icon="ems_visitor,static/description/icon.png"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Visitor" id="ems_visitor_menu_1" parent="ems_visitor_menu_root" action="ems_visitor_action_window"/>
+
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="ems_visitor.menu_1_list" parent="ems_visitor.menu_1"
+              action="ems_visitor.action_window"/>
+    <menuitem name="Server to list" id="ems_visitor" parent="ems_visitor.menu_2"
+              action="ems_visitor.action_server"/>
+-->
+  </data>
+</odoo>
