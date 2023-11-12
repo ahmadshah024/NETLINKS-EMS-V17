@@ -1,0 +1,144 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="ems_curriculum_view_tree">
+      <field name="name">curriculum</field>
+      <field name="model">ems.curriculum</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="acadomic_year"/>
+          <!-- <field name="book_name"/> -->
+        </tree>
+
+      </field>
+    </record>
+
+
+    <record id="ems_curriculum_view_search" model="ir.ui.view">
+        <field name="name">ems_curriculum_view_search</field>
+        <field name="model">ems.curriculum</field>
+        <field name="arch" type="xml">
+            <search string="">
+                <field name="name"/>
+                <!-- <field name="book_name" /> -->
+
+            </search>
+        </field>
+    </record>
+
+     <record id="ems_curriculum_kanban" model="ir.ui.view">
+            <field name="name">ems_curriculum_view_kanban</field>
+            <field name="model">ems.curriculum</field>
+            <field name="priority">10</field>
+            <field name="arch" type="xml">
+                <kanban sample="1">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <strong class="ml-2">
+                                         <field name="name"/>
+                                        </strong>
+                                        <div class="ml-2" name="class">
+
+                                        </div>
+                                        <div class="oe_kanban_details mt-3 ml-2" name="items">
+                                            <ul>
+                                                <li><i class="fa fa-year p-1" title="acadomic_year"/> <field name="acadomic_year" widget="acadomic_year"/></li> 
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record> 
+
+
+    <record id="ems_curriculum_view_form" model="ir.ui.view">
+      <field name="name">ems_curriculum_view_form</field>
+      <field name="model">ems.curriculum</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <header>
+            <button name="action_mark_done" string="Done" type="object" class="oe_highlight" invisible="state in ('cancel','done')"/>
+            <button name="action_mark_cancel" string="Cancel" type="object" class="oe_highlight" invisible="state in ('cancel','done')"/> 
+            <button name="action_mark_draft" string="Draft" type="object" class="oe_highlight" invisible="state in ('cancel','draft')"/>   
+            <field name="state" widget="statusbar" statusbar_visible="draft,done,cancel,"/>
+        </header>
+          <sheet>
+            <div class="oe_title">
+                <h1>
+                  <field name="reference"/>
+                </h1>
+            </div>
+            <group>
+              <group>
+                <field name="name" placeholder="Name"/>
+                <field name="class_id" options="{'no_create': True}" />
+              </group>
+              <group>
+                <field name="acadomic_year"/>
+              </group>
+            </group>
+            <notebook>
+              <page name="book" string="Books">
+                  <field name="curriculum_line_ids">
+                      <tree editable="bottom">
+                        <field name="subject_id"/>
+                          <field name="book_id"/>
+                      </tree>
+                  </field>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="curriculum_action_window">
+      <field name="name">Curriculum</field>
+      <field name="res_model">ems.curriculum</field>
+      <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+   
+
+       
+    <record model="ir.actions.act_window" id="book_action_window">
+      <field name="name">Books</field>
+      <field name="res_model">ems.book</field>
+      <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+     
+
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="Curriculum" id="curriculum_menu_root"  web_icon="curriculum,static/description/icon.png"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Curriculum" id="curriculum_menu_1" parent="curriculum_menu_root" action="curriculum_action_window"/>
+    <menuitem name="Books" id="book_menu_2" parent="curriculum_menu_root" action="book_action_window"/>
+
+ 
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="curriculum.menu_1_list" parent="curriculum.menu_1"
+              action="curriculum.action_window"/>
+    <menuitem name="Server to list" id="curriculum" parent="curriculum.menu_2"
+              action="curriculum.action_server"/>
+-->
+  </data>
+</odoo>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="student_print_badge" model="ir.actions.report">
+        <field name="name">Print Badge</field>
+        <field name="model">ems.student</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ems-student.print_student_badge</field>
+        <field name="report_file">ems-student.print_student_badge</field>
+        <field name="print_report_name">'Print Badge - %s' % (object.name).replace('/', '')</field>
+        <field name="binding_model_id" ref="model_ems_student"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="print_student_badge">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="employee">
+                    <div class="col-md-6">
+                        <div class="badge-container" style="height: 510px; width: 300px; display: flex; flex-direction: column; align-items: center;border:2px solid #000;border-radius:10px;">
+                            <div class="logo" style="margin-top: 10px;">
+                                <img t-if="employee.school.logo" t-att-src="image_data_uri(employee.school.logo)" alt="Company Logo" style="max-height: 85pt; max-width: 90%"/>
+                            </div>
+                            <t t-if="employee.image">
+                                
+                                <div class="avatar" style="margin-bottom:30px;">
+                                    <img t-att-src="image_data_uri(employee.image)" alt="Student Image" style="max-height: 85pt; max-width: 90%"/>
+                                </div>
+                            </t>
+                            <div class="info" style="margin-bottom:30px;">
+                                <div class="name"><span class="fw-bold">Name:</span><t t-esc="employee.name"/></div>
+                                <div class="class-name"><span class="fw-bold">F-Name:</span><t t-esc="employee.father_name"/></div>
+                                <div class="class-name"><span class="fw-bold">Class:</span> <t t-esc="employee.class_id.name"/></div>
+                                <div class="class-name"><span class="fw-bold">Phone:</span> <t t-esc="employee.parent_id.phone"/></div>
+                                <div class="class-name"><span class="fw-bold">Year:</span> <t t-esc="employee.academic_year"/></div>
+                            </div>
+                            <div>
+                                <div t-if="employee.barcode" class="barcode" style="text-align:center;margin-bottom:30px;">
+                                    <div class="class-name"><t t-esc="employee.barcode"/></div>
+                                    <div t-field="employee.barcode" t-options="{'widget': 'barcode', 'width': 600, 'height': 120, 'img_style': 'max-height:50pt;max-width:100%;', 'img_align': 'center'}"/>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+    
+    
+</odoo>

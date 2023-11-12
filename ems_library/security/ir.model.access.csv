@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ems_library,ems.library,model_ems_library,base.group_user,1,1,1,1
+access_ems_library_line,ems.library.line,model_ems_library_line,base.group_user,1,1,1,1
+access_ems_library_books,ems.library.books,model_ems_library_books,base.group_user,1,1,1,1

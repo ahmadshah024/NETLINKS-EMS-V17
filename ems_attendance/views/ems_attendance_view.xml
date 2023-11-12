@@ -1,0 +1,86 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="ems_attendance_view_tree">
+      <field name="name">ems.attendance.view.tree</field>
+      <field name="model">ems.attendance</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="date"/>
+          <field name="class_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="ems_attendance_view_form" model="ir.ui.view">
+      <field name="name">ems.attendance.view.form</field>
+      <field name="model">ems.attendance</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <header>
+            <button name="action_mark_done" string="Done" type="object" class="oe_highlight"
+                invisible="state in ('cancel','done')"/>
+            <button name="action_mark_cancel" string="Cancel" type="object" class="oe_highlight"
+            invisible="state in ('cancel','done')"/>   
+            <field name="state" widget="statusbar" statusbar_visible="draft,done,cancel,"/>
+        </header>
+          <sheet>
+            <div class="oe_title">
+              <h1>
+                  <field name="name"/>
+              </h1>
+            </div>  
+            <group>
+              <group>
+                <field name="class_id" options="{'no_create': True}" />    
+                <field name="date" />
+              </group>
+            </group>
+            <notebook>
+              <page name="students" string="Students">
+                <field name="attendance_line_ids">
+                  <tree editable="bottom" create="0"> 
+                    <field name="student_id" />
+                    <field name="is_present" />
+                    <field name="is_absent" />
+                    <field name="is_leave" />
+                    <!-- <field name="state" invisible="1"/> -->
+                  </tree>
+                </field>
+              </page>
+
+            </notebook>
+            <!-- <field name="student_ids" options="{'no_create': True}" domain="[('class_id', '=', class_id)]"/> -->
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="ems_attendance_view_search" model="ir.ui.view">
+      <field name="name">ems.attendance.view.search</field>
+      <field name="model">ems.attendance</field>
+      <field name="arch" type="xml">
+          <search string="">
+              <field name="class_id" />
+              <filter string="Today" name="date_today" domain="[('date', '=', context_today())]" />
+              <group expand="1" string="Group By">
+                  <filter string="Class" name='class_id' context="{'group_by':'class_id'}"/>
+              </group>
+          </search>
+      </field>
+  </record>
+    <record model="ir.actions.act_window" id="ems_attendance_action_window">
+      <field name="name">Attendance</field>
+      <field name="res_model">ems.attendance</field>
+      <field name="view_mode">tree,form</field>
+      <field name="context">{'search_default_date_today': 1}</field>
+    </record> 
+
+
+    <menuitem name="Attendance" id="ems_attendance_menu_root" web_icon="ems_attendance,static/description/icon.png"/>
+
+    <menuitem name="Attendance" id="ems_attendance_menu" parent="ems_attendance_menu_root" action="ems_attendance_action_window" />
+  </data>
+</odoo>

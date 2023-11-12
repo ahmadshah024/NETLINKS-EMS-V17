@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ems_finance,ems.finance,model_ems_finance,base.group_user,1,1,1,1
+access_ems_finance_enrollment_line,ems.finance.enrollment.line,model_ems_finance_enrollment_line,base.group_user,1,1,1,1
+access_ems_finance_month_line,ems.finance.month.line,model_ems_finance_month_line,base.group_user,1,1,1,1
+access_ems_finance_uniform_line,ems.finance.uniform.line,model_ems_finance_uniform_line,base.group_user,1,1,1,1
+access_ems_finance_book_line,ems.finance.book.line,model_ems_finance_book_line,base.group_user,1,1,1,1

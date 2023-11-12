@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ems_attendance,ems.attendance,model_ems_attendance,base.group_user,1,1,1,1
+access_ems_attendance_line,ems.attendance.line,model_ems_attendance_line,base.group_user,1,1,1,1
+access_ems_attendance_report_wizard,ems.attendance.report.wizard,model_ems_attendance_report_wizard,base.group_user,1,1,1,1

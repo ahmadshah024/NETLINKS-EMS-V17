@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="ems_timetable_period_view_tree" model="ir.ui.view">
+            <field name="name">ems.timetable.period.view.tree</field>
+            <field name="model">ems.timetable.period</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>    
+        <record id="ems_timetable_period_view_form" model="ir.ui.view">
+            <field name="name">ems.timetable.period.view.form</field>
+            <field name="model">ems.timetable.period</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="periods" string="Periods">
+                                <field name="period_line_ids">
+                                    <tree editable="top">
+                                        <field name="number" />
+                                        <field name="start_time" />
+                                        <field name="end_time" />
+                                        <field name="length" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>        
+    </data>
+</odoo>

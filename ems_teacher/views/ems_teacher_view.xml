@@ -1,0 +1,136 @@
+<odoo>
+  <data>
+    <record id="hr.hr_employee_print_badge" model="ir.actions.report">
+        <field name="binding_model_id" ref=""/>
+    </record>
+    
+    <!-- explicit list view definition -->
+
+    <record id="ems_teacher_inherit" model="ir.ui.view">
+        <field name="name">view.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='mobile_phone']" position="before">
+                <field name="is_teacher"   invisible="is_teacher == True"  />
+            </xpath>
+            <xpath expr="//button[@name='%(hr.hr_employee_print_badge)d']" position="replace">
+                <button name="%(teacher_print_badge)d" string="Print Badge" class="btn btn-link" type="action" invisible="barcode == False"  />
+            </xpath>
+            <xpath expr="//field[@name='coach_id']" position="replace">
+                <field name="class_id" string="Responsible For Class" options="{'no_create': True}"   invisible="is_teacher == False" />
+            </xpath>
+            <xpath expr="//field[@name='tz']" position="after">
+                <field name="salary" />
+            </xpath>
+            <xpath expr="//page[@name='hr_settings']" position="after">
+                <page name="slots" string="Teacher Subjects and Classes">
+                     <field name="teacher_line_ids">
+                        <tree editable="bottom">
+                            <field name="class_id" />
+                            <field name="period_count" />
+                        </tree>
+                     </field>
+                </page>
+            </xpath>
+
+             
+            <!-- <xpath expr="//h1[@class='d-flex flex-row']" position="before">
+                <label for="reference"  class="o_form_label">Reference No</label>
+                <field name="reference" style="font-size: 18px;margin-bottom:30px;"/>
+                <field name="name" placeholder="Employee's Name" style="font-size:2.5rem; margin-bottom:10px;"/>
+            </xpath> -->
+        </field>
+    </record>
+     <!-- Kanban -->
+    <record id="hms_doctor_kanban_view" model="ir.ui.view">
+    <field name="name">hms.doctor.view.kanban</field>
+    <field name="model">hr.employee</field>
+    <field name="inherit_id" ref="hr.hr_kanban_view_employees" />
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position="after">
+            <ul>
+                <li t-if="record.reference">
+                    <strong>Reference No:</strong>
+                    <field name="reference" />
+                </li>
+            </ul>
+        </xpath>
+        <xpath expr="//field[@name='category_ids']" position="after">
+            <ul>
+                <li t-if="record.department_id">
+                    <strong>Departemnt:</strong>
+                    <field name="department_id" />
+                </li>
+            </ul>
+        </xpath>
+    </field>
+</record>
+<!-- tree -->
+ <record model="ir.ui.view" id="hms_doctor_list">
+      <field name="name">hms doctor list</field>
+      <field name="model">hr.employee</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="reference"/>
+          <field name="name"/>
+          <field name="category_ids"/>
+          <field name="department_id"/>
+          <field name="job_title" />
+        </tree>
+      </field>
+    </record>
+    <!-- search -->
+  <record id="hms_doctor_search_view" model="ir.ui.view">
+            <field name="name">hms.doctor.search.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter" />
+            <field name="arch" type="xml">
+                    <xpath expr="//search" position="inside">
+                        <field name="reference" string="Reference No" filter_domain="[('reference', 'ilike', self)]" />
+                        <field name="identification_id" string="Identification No" filter_domain="[('identification_id', 'ilike', self)]" />
+                        <field name="passport_id" string="Passport No" filter_domain="[('passport_id', 'ilike', self)]" />
+                    </xpath>
+
+                    <xpath expr="//search" position="inside">
+                        <filter name="filter_male" string="Male" domain="[('gender', '=', 'male')]"/>
+                        <filter name="filter_female" string="Female" domain="[('gender', '=', 'female')]"/>
+                    </xpath>
+
+                    <xpath expr="//field[@name='job_id']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//filter[@name='my_team']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//filter[@name='my_department']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//filter[@name='inactive']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//filter[@name='message_needaction']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//group/filter[@name='group_category_ids']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+            </field>
+        </record>
+        <!-- actions -->
+    <record model="ir.actions.act_window" id="ems_teacher_action_window">
+      <field name="name">Teachers</field>
+      <field name="view_mode">kanban,tree,form</field>
+      <field name="res_model">hr.employee</field>
+      <field name="domain">[('is_teacher', '=', True)]</field>
+      <field name="context">{'default_is_teacher': True, 'doctor': 1}</field>
+    </record>
+
+     
+    <!-- parent menu list -->
+    <menuitem name="Teachers" id="teacher_menu_root" web_icon="ems_teacher,static/description/icon.png"/>
+  <!-- sub menu list -->
+    <menuitem name="All Teachers" id="all_teachers_menu" parent="teacher_menu_root" action="ems_teacher_action_window" sequence="1"/>
+
+  </data>
+</odoo>

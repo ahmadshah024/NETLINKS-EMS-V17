@@ -1,0 +1,115 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="ems_finance_view_tree">
+      <field name="name">ems.finance.view.tree</field>
+      <field name="model">ems.finance</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="student_id"/>
+          <field name="student_class"/>
+          <field name="date" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="ems_finance_view_form" model="ir.ui.view">
+        <field name="name">ems.finance.view.form</field>
+        <field name="model">ems.finance</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <button name="action_draft" string="Draft" type="object"  />
+                    <button name="action_approved" string="Approve" type="object"  />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div> 
+                    <group>
+                        <group>
+                            <field name="student_id" options="{'no_create': True}" />
+                            <field name="student_class" />
+                            <field name="date" />
+                            <field name="enrollment_total" invisible="is_enrollment == False"/>
+                            <field name="fee_total" invisible="is_monthly_fee == False" />
+                            <field name="uniform_total" invisible="is_uniform_fee == False" />
+                            <field name="book_total" invisible="is_book == False" />
+                        </group>
+                        <group>
+                            <field name="is_enrollment" />
+                            <field name="is_monthly_fee" />
+                            <field name="is_uniform_fee" />
+                            <field name="is_book" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="enrollment" string="Enrollment" invisible="is_enrollment == False"  >
+                            <field name="finance_line_ids">
+                                <tree editable='bottom'>
+                                    <field name="registration_fee" />
+                                    <field name="monthly_fee" />
+                                    <field name="uniform_id" />
+                                    <field name="uniform_pices" />
+                                    <field name="uniform_price" />
+                                    <field name="book_id" />
+                                    <field name="book_quantity" />
+                                    <field name="book_price" />
+                                    <field name="total" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="monthly_fee" string="Month Fee" invisible="is_monthly_fee == False"   >
+                            <field name="finance_month_line_ids">
+                                <tree editable='bottom'>
+                                    <field name="monthly_fee" />
+                                    <field name="month" />
+                                    <field name="number_of_month" />
+                                    <field name="total" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="uniform_fee" string="Uniform Fee" invisible="is_uniform_fee == False"  >
+                            <field name="finance_uniform_line_ids">
+                                <tree editable="bottom">
+                                    <field name="uniform_id" />
+                                    <field name="price" />
+                                    <field name="pices" />
+                                    <field name="total" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="book_fee" string="Book" invisible="is_book == False"  >
+                            <field name="finance_book_line_ids">
+                                <tree editable="bottom">
+                                    <field name="book_id" />
+                                    <field name="quantity" />
+                                    <field name="price" />
+                                    <field name="total" />
+                                </tree>
+                            </field>
+                        </page>
+                        
+
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="ems_finance_action_window">
+      <field name="name">Finance</field>
+      <field name="res_model">ems.finance</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Finance" id="ems_finance_menu_root"  web_icon="ems_finance,static/description/icon.png"/>
+    <menuitem name="Finance" id="ems_finance_menu_1" action="ems_finance_action_window" parent="ems_finance_menu_root"/>
+
+  </data>
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="timetable">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="oe_structure" />
+                        <br /><br />
+                        <div class="row" align="center">
+                            <div class="logo" style="margin-top: 10px;">
+                                <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" alt="Company Logo" style="max-height: 85pt; max-width: 90%"/>
+                            </div>
+                            <div class="name" style="margin-top: 10px;">
+                                <h2><t t-esc="o.company_id.name"/></h2>
+                            </div>
+                            
+                            <h1>Timetable For Class<t t-esc="o.class_id.name"/></h1>
+                            <h2>For <t t-esc="o.academic_year"/> Year</h2>
+                        </div>
+                        <div class="row">
+                            <table class="table table-striped timetable">
+                                <thead>
+                                    <tr>
+                                        <th class="day">Day</th>
+                                        <th>Subject 1</th>
+                                        <th>Subject 2</th>
+                                        <th>Subject 3</th>
+                                        <th>Subject 4</th>
+                                        <th>Subject 5</th>
+                                        <th>Subject 6</th>
+                                        <th>Subject 7</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.timetable_line_ids" t-as="line">
+                                        <td class="day" t-esc="line.week_days" />
+                                        <td t-esc="line.subject_id1.name" />
+                                        <td t-esc="line.subject_id2.name" />
+                                        <td t-esc="line.subject_id3.name" />
+                                        <td t-esc="line.subject_id4.name" />
+                                        <td t-esc="line.subject_id5.name" />
+                                        <td t-esc="line.subject_id6.name" />
+                                        <td t-esc="line.subject_id7.name" />
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

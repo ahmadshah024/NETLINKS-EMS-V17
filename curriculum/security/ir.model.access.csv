@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_curriculum,ems.curriculum,model_ems_curriculum,base.group_user,1,1,1,1
+access_book,ems.book,model_ems_book,base.group_user,1,1,1,1
+access_curriculum_line,ems.curriculum.line,model_ems_curriculum_line,base.group_user,1,1,1,1

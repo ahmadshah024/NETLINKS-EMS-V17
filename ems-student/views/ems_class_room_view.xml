@@ -1,0 +1,53 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="ems-student.list">
+      <field name="name">ems-student list</field>
+      <field name="model">ems.class.room</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="block"/>
+          <field name="room_number"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="ems_class_room_view_form" model="ir.ui.view">
+      <field name="name">ems.class.room.view.form</field>
+      <field name="model">ems.class.room</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <sheet>
+            <div class="oe_button_box" name="button_box">
+                <button class="oe_stat_button" name="action_open_students" type="object" icon="fa-users">
+                <field string="Students" name="student_count" widget="statinfo" />
+                </button>
+            </div>
+            <div class="oe_title">
+              <h1>
+                  <field name="name" placeholder="Name"/>
+              </h1>
+            </div>    
+            <group>
+              <group>
+                <field name="block" />
+                <field name="room_number" />
+              </group>  
+            </group>
+            <notebook>
+              <page name="subjects" string="Subjects">
+                <field name="class_line_ids">
+                  <tree name='subjects' create="0">
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+   
+  </data>
+</odoo>

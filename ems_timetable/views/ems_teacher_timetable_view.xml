@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="ems_teacher_timetable_view_tree" model="ir.ui.view">
+            <field name="name">ems.teacher.timetable.view.tree</field>
+            <field name="model">ems.teacher.timetable</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>    
+        <record id="ems_teacher_timetable_view_form" model="ir.ui.view">
+            <field name="name">ems.teacher.timetable.view.form</field>
+            <field name="model">ems.teacher.timetable</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="teacher_id" />
+                                <field name="period" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="schedule" string="Schedule">
+                                <field name="line_ids">
+                                    <tree editable="bottom">
+                                        <field name="days" />
+                                        <field name="start_time" />
+                                        <field name="end_time" />
+                                        <field name="duration" />
+                                        <field name="subject_id" />
+                                        <field name="class_id" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>        
+    </data>
+</odoo>

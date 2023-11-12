@@ -1,0 +1,99 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="ems_transport_car_view_tree">
+      <field name="name">ems.transport.car.tree</field>
+      <field name="model">ems.transport.car</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="model"/>
+          <field name="no_palette"/>
+          <field name="color" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="ems_transport_car_view_form" model="ir.ui.view">
+      <field name="name">ems.transport.car.view.form</field>
+      <field name="model">ems.transport.car</field>
+      <field name="arch" type="xml">
+        <form string="">
+            <header>
+                <button name="action_done" string="Done" type="object" invisible="state in ('done','cancel')"/>
+                <button name="action_cancel" string="Cancel" type="object" invisible="state in ('done','cancel')"/>
+                <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,done"/>
+            </header>
+          <sheet>
+            <field name="image" widget='image' class="oe_avatar"/>
+            <div class="oe_title">
+              <h1>
+                <field name="name"/>
+              </h1>
+          </div>
+            <group>
+              <group>
+                <field name="model" />
+                <field name="no_palette" />
+                <field name="color" />
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="ems_transport_car_view_kanban" model="ir.ui.view">
+      <field name="name">ems.transport.car.view.kanban</field>
+      <field name="model">ems.transport.car</field>
+      <field name="priority">10</field>
+      <field name="arch" type="xml">
+          <kanban sample="1">
+              <templates>
+                  <t t-name="kanban-box">
+                      <div t-attf-class="oe_kanban_global_click">
+                          <div class="row">
+                              <div class="col-4 d-flex align-items-center">
+                                  <field name="image" widget="image" class="oe_avatar" style="{'size': [400,400]}" />
+                              </div>
+                              <div class="col-8">
+                                  <strong class="ml-2">
+                                      <field name="name" />
+                                  </strong>
+                                  <div class="ml-2">
+                                      <field name="model" />
+                                  </div>
+                                  <div class="ml-2">
+                                    <field name="no_palette"/>
+                                </div>
+                                <div class="ml-2">
+                                  <field name="color" />
+                              </div>
+                              
+                              </div>
+                          </div>
+                      </div>
+                  </t>
+              </templates>
+          </kanban>
+      </field>
+  </record>
+    <record id="ems_transport_car_view_search" model="ir.ui.view">
+        <field name="name">ems.transport.car.view.search</field>
+        <field name="model">ems.transport.car</field>
+        <field name="arch" type="xml">
+          <search>
+            <field name="name" />
+            <field name="model" />
+            <field name="no_palette" />
+            <field name="color" />
+            <separator />
+            <group expand="0" string="Group By">
+                <filter name="color" string="Color" context="{'group_by': 'color'}" />
+            </group>
+          </search>
+        </field>
+      </record>
+    
+  </data>
+</odoo>

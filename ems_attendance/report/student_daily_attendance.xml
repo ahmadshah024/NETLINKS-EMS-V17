@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_paperformat_custom" model="report.paperformat">
+        <field name="name">Custom A4</field>
+        <field name="format">custom</field>
+        <field name="page_height">260</field>  
+        <field name="page_width">210</field>   
+        <field name="orientation">Portrait</field>  
+        <field name="margin_top">1</field>  
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+    </record>
+    <record id="student_print_daily_attendance" model="ir.actions.report">
+        <field name="name">Print Daily Attendance</field>
+        <field name="model">ems.attendance</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ems_attendance.print_student_daily_attendance</field>
+        <field name="report_file">ems_attendance.print_student_daily_attendance</field>
+        <field name="print_report_name">'Print Student Daily Attendance'</field>
+        <field name="binding_model_id" ref="model_ems_attendance"/>
+        <field name="paperformat_id" ref="report_paperformat_custom"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="print_student_daily_attendance">
+        <t t-call="web.basic_layout">
+        <!-- <t t-call="web.html_container"> -->
+            <t t-foreach="docs" t-as="o" >
+                    <div class="page" style="page-break-after: always;">
+                        <div class="oe_structure" />
+                        <br /><br />
+                        <div class="row" align="center">
+                            <div class="logo" style="margin-top: 10px;">
+                                <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" alt="Company Logo" style="max-height: 85pt; max-width: 90%"/>
+                            </div>
+                            <div class="name" style="margin-top: 10px;">
+                                <h2><t t-esc="o.company_id.name"/></h2>
+                            </div>
+                            
+                            <h1>Attanden For Class<t t-esc="o.class_id.name"/></h1>
+                            <h2>For <t t-esc="o.date"/> Year</h2>
+                        </div>
+                        <div class="row">
+                            <table class="table table-striped timetable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Father Name</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.attendance_line_ids" t-as="line">
+                                        <td class="day" t-esc="line.student_id.reference" />
+                                        <td t-esc="line.student_id.name" />
+                                        <td t-esc="line.student_id.father_name" />
+                                        <td>
+                                            <t t-if="line.is_present">
+                                                <t t-esc="'Present'"/>
+                                            </t>
+                                            <t t-elif="line.is_absent">
+                                                <t t-esc="'Absent'"/>
+                                            </t>
+                                            <t t-elif="line.is_leave">
+                                                <t t-esc="'Leave'"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                <!-- </t> -->
+            </t>
+        </t>
+    </template>
+    
+    
+</odoo>
